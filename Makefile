@@ -18,10 +18,10 @@ all: all-container
 BUILDTAGS=
 
 # Use the 0.0 tag for testing, it shouldn't clobber any release builds
-TAG?=0.12.0
-REGISTRY?=quay.io/kubernetes-ingress-controller
+TAG?=1.13.11-3
+REGISTRY?=gcr.io/bpowers-infra
 GOOS?=linux
-DOCKER?=gcloud docker --
+DOCKER?=docker
 SED_I?=sed -i
 GOHOSTOS ?= $(shell go env GOHOSTOS)
 
@@ -41,7 +41,7 @@ ARCH ?= $(shell go env GOARCH)
 GOARCH = ${ARCH}
 DUMB_ARCH = ${ARCH}
 
-ALL_ARCH = amd64 arm arm64 ppc64le s390x
+ALL_ARCH = amd64
 
 QEMUVERSION=v2.9.1-1
 
@@ -50,7 +50,7 @@ IMAGE = $(REGISTRY)/$(IMGNAME)
 MULTI_ARCH_IMG = $(IMAGE)-$(ARCH)
 
 # Set default base image dynamically for each arch
-BASEIMAGE?=quay.io/kubernetes-ingress-controller/nginx-$(ARCH):0.40
+BASEIMAGE?=gcr.io/bpowers-infra/nginx:1.13.11-3
 
 ifeq ($(ARCH),arm)
 	QEMUARCH=arm

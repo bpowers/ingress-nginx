@@ -16,10 +16,6 @@ FROM BASEIMAGE
 
 CROSS_BUILD_COPY qemu-QEMUARCH-static /usr/bin/
 
-RUN clean-install \
-  diffutils \
-  dumb-init
-
 # Create symlinks to redirect nginx logs to stdout and stderr docker log collector
 # This only works if nginx is started with CMD or ENTRYPOINT
 RUN mkdir -p /var/log/nginx \
@@ -28,6 +24,6 @@ RUN mkdir -p /var/log/nginx \
 
 COPY . /
 
-ENTRYPOINT ["/usr/bin/dumb-init"]
+ENTRYPOINT ["/sbin/tini", "--"]
 
 CMD ["/nginx-ingress-controller"]
