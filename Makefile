@@ -18,7 +18,7 @@ all: all-container
 BUILDTAGS=
 
 # Use the 0.0 tag for testing, it shouldn't clobber any release builds
-TAG?=1.13.11-4
+TAG?=1.13.11-8
 REGISTRY?=gcr.io/bpowers-infra
 GOOS?=linux
 DOCKER?=docker
@@ -50,7 +50,8 @@ IMAGE = $(REGISTRY)/$(IMGNAME)
 MULTI_ARCH_IMG = $(IMAGE)-$(ARCH)
 
 # Set default base image dynamically for each arch
-BASEIMAGE?=gcr.io/bpowers-infra/nginx:1.13.11-4
+#BASEIMAGE?=gcr.io/bpowers-infra/nginx:1.13.11-4
+BASEIMAGE?=quay.io/kubernetes-ingress-controller/nginx-$(ARCH):0.40
 
 ifeq ($(ARCH),arm)
 	QEMUARCH=arm
